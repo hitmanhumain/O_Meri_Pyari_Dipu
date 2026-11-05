@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>O Meri Pyaari Dipu</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;1,400;1,500&family=Pinyon+Script&display=swap">
+<style>
+/* Layout: a quiet white page of ink-line flowers; tulips and lavender rise on the left, magnolia and baby's breath hang on the right, the note sits in the middle. The only colour is the orange heart. */
+:root {
+  --paper: #fdfdfc;
+  --ink: #151515;
+  --ink-soft: #6b6b69;
+  --heart: #ff6b14;
+  --script: "Pinyon Script", "Snell Roundhand", "Segoe Script", cursive;
+  --serif: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--serif);
+  padding-block: 0;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  overflow-x: hidden;
+}
+.stage {
+  min-height: 100svh;
+  max-width: 1200px;
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: center;
+  gap: 1rem;
+  padding-block: 1.25rem;
+}
+.col { display: flex; min-width: 0; gap: 4%; align-items: flex-end; justify-content: center; }
+.col svg { display: block; height: auto; overflow: visible; min-width: 0; }
+.col-r { order: 1; }
+.note { order: 2; }
+.col-l { order: 3; }
+.col-r svg.magnolia { width: 58%; max-height: 26svh; }
+.col-r svg.gyp { width: 30%; max-height: 26svh; }
+.col-l svg.tulips { width: 50%; max-height: 32svh; }
+.col-l svg.lav { width: 17%; max-height: 32svh; }
+
+.note { text-align: center; min-width: 0; padding-block: 1rem; }
+.hail {
+  margin: 0;
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(1.5rem, 5.4vw, 2.5rem);
+  letter-spacing: 0.04em;
+  color: var(--ink);
+}
+.name {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.08em;
+  font-family: var(--script);
+  font-weight: 400;
+  font-size: clamp(5.4rem, 24vw, 11.5rem);
+  line-height: 1.05;
+}
+.hail-wrap { display: block; }
+.write {
+  display: inline-block;
+  padding: 0.12em 0.2em;
+  clip-path: inset(-20% 100% -20% -5%);
+  animation: write 1.7s cubic-bezier(.55, .1, .3, 1) var(--d, 0s) forwards;
+}
+@keyframes write { to { clip-path: inset(-20% -10% -20% -5%); } }
+.heart { width: 0.5em; height: 0.5em; flex: none; transform-origin: 50% 60%; animation: pop .7s cubic-bezier(.3,1.6,.5,1) 1.5s both, beat 1.8s ease-in-out 2.3s infinite; }
+@keyframes pop { from { transform: scale(0.2) rotate(-14deg); opacity: 0; } to { transform: scale(1) rotate(0); opacity: 1; } }
+@keyframes beat { 0%, 100% { transform: scale(1); } 14% { transform: scale(1.14); } 28% { transform: scale(1); } 42% { transform: scale(1.08); } 56% { transform: scale(1); } }
+.rule { display: block; width: min(15rem, 62%); height: auto; margin: 0.4rem auto 0.9rem; overflow: visible; }
+.say {
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0 0.3em;
+  font-style: italic;
+  font-size: clamp(1.9rem, 7vw, 3.2rem);
+  letter-spacing: 0.06em;
+}
+.say .love {
+  font-family: var(--script);
+  font-style: normal;
+  letter-spacing: 0;
+  font-size: 2.35em;
+  line-height: 1;
+  position: relative;
+}
+.say .love .write { --d: 1.1s; }
+.say .swash { position: absolute; left: 4%; bottom: -0.06em; width: 92%; height: 0.5em; overflow: visible; }
+.say .lead, .say .tail { display: inline-block; animation: rise .9s ease-out .6s both; }
+.say .tail { animation-delay: 2.1s; }
+@keyframes rise { from { transform: translateY(0.35em); opacity: 0; } to { transform: none; opacity: 1; } }
+.tail span { display: inline-block; animation: sway 5s ease-in-out infinite; animation-delay: calc(var(--i) * .22s); }
+@keyframes sway { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-0.06em); } }
+
+.ink { fill: none; stroke: var(--ink); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 2.4s ease-out var(--d, 0s) forwards; }
+.ink.thin { stroke-width: 1; }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+
+.stage { position: relative; }
+.scatter { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+.scatter svg { position: absolute; overflow: visible; transform: translate(-50%, -50%) rotate(var(--r, 0deg)); height: auto; }
+.scatter .d { display: none; }
+.scatter svg.m { display: block; }
+.petal-fall { position: absolute; width: 0.9rem; top: -3%; animation: fall var(--t, 16s) linear var(--w, 0s) infinite; opacity: 0; }
+.petal-fall path { fill: none; stroke: var(--ink); stroke-width: 1.2; stroke-linejoin: round; }
+@keyframes fall {
+  0% { transform: translate(0, 0) rotate(0deg); opacity: 0; }
+  8% { opacity: .85; }
+  50% { transform: translate(2.2rem, 52svh) rotate(160deg); }
+  92% { opacity: .85; }
+  100% { transform: translate(-1rem, 106svh) rotate(320deg); opacity: 0; }
+}
+@media (min-width: 900px) {
+  .scatter svg.d { display: block; }
+  .scatter svg.m { display: none; }
+  .stage { max-width: 1440px; grid-template-columns: minmax(0, 1.25fr) minmax(0, 30rem) minmax(0, 1.1fr); gap: 1.5rem; }
+  .col { align-self: stretch; }
+  .col-l { grid-column: 1; grid-row: 1; order: 0; align-items: flex-end; justify-content: flex-start; }
+  .note { grid-column: 2; grid-row: 1; order: 0; }
+  .col-r { grid-column: 3; grid-row: 1; order: 0; flex-direction: column; align-items: flex-end; justify-content: space-between; gap: 1rem; }
+  .col-l svg.tulips { width: 74%; max-height: 90svh; }
+  .col-l svg.lav { width: 22%; max-height: 66svh; }
+  .col-r svg.magnolia { width: 100%; max-height: 46svh; }
+  .col-r svg.gyp { width: 58%; max-height: 40svh; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .petal-fall { display: none; }
+  .write, .heart, .say .lead, .say .tail, .tail span, .ink { animation: none !important; clip-path: none; stroke-dashoffset: 0; opacity: 1; transform: none; }
+}
+</style>
+
+</head>
+<body>
+<main class="stage">
+  <div class="col col-r" aria-hidden="true">
+    <svg class="magnolia" id="magnolia" viewBox="0 0 420 400"></svg>
+    <svg class="gyp" id="gyp" viewBox="0 0 220 340"></svg>
+  </div>
+
+  <section class="note">
+    <h1 style="margin:0">
+      <span class="hail hail-wrap">O meri pyaari</span>
+      <span class="name">
+        <span class="write" style="--d:.3s">Dipu</span>
+        <svg class="heart" viewBox="0 0 100 92" aria-label="orange heart" role="img">
+          <path d="M50 86 C12 58 -2 34 8 16 C18 -2 44 2 50 24 C56 2 82 -2 92 16 C102 34 88 58 50 86Z" fill="var(--heart)"/>
+          <path d="M53 90 C15 62 1 38 11 20 C21 2 47 6 53 28 C59 6 85 2 95 20 C105 38 91 62 53 90Z" fill="none" stroke="var(--ink)" stroke-width="2.4" stroke-linejoin="round"/>
+        </svg>
+      </span>
+    </h1>
+    <svg class="rule" viewBox="0 0 260 28" aria-hidden="true">
+      <path class="ink thin" pathLength="1" style="--d:1.2s" d="M4 14 C50 8 90 18 118 14"/>
+      <path class="ink thin" pathLength="1" style="--d:1.2s" d="M142 14 C170 18 210 8 256 14"/>
+      <path d="M130 22 C118 14 114 8 119 4 C123 1 128 3 130 8 C132 3 137 1 141 4 C146 8 142 14 130 22Z" fill="var(--heart)"/>
+    </svg>
+    <p class="say">
+      <span class="lead">I</span>
+      <span class="love">
+        <span class="write">love</span>
+        <svg class="swash" viewBox="0 0 200 30" aria-hidden="true"><path class="ink" pathLength="1" style="--d:2.2s" d="M4 20 C50 4 120 2 196 14 C150 12 90 16 40 26"/></svg>
+      </span>
+      <span class="tail" aria-label="you"><span style="--i:0">y</span><span style="--i:1">o</span><span style="--i:2">u</span></span>
+    </p>
+  </section>
+
+  <div class="col col-l" aria-hidden="true">
+    <svg class="tulips" id="tulips" viewBox="0 0 300 520"></svg>
+    <svg class="lav" id="lav" viewBox="0 0 120 360"></svg>
+  </div>
+  <div class="scatter" id="scatter" aria-hidden="true"></div>
+</main>
+
+<script>
+(function () {
+  function rng(seed) { return function () { seed |= 0; seed = seed + 0x6D2B79F5 | 0; var t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+  function P(d, delay, cls) { return '<path class="ink ' + (cls || '') + '" pathLength="1" style="--d:' + delay.toFixed(2) + 's" d="' + d + '"/>'; }
+  function G(t, inner) { return '<g transform="' + t + '">' + inner + '</g>'; }
+  function set(id, html) { var el = document.getElementById(id); if (el) el.innerHTML = html; }
+
+  /* tulips */
+  function tulip(x, y, rot, s, d) {
+    return G('translate(' + x + ' ' + y + ') rotate(' + rot + ') scale(' + s + ')',
+      P('M-40 -90 C-46 -40 -26 -4 0 0 C26 -4 46 -40 40 -90', d) +
+      P('M-40 -90 C-32 -80 -26 -72 -20 -64 C-16 -78 -10 -92 0 -102 C10 -92 16 -78 20 -64 C26 -72 32 -80 40 -90', d + .2) +
+      P('M0 -102 C-4 -60 -2 -30 0 0', d + .4, 'thin') +
+      P('M-20 -64 C-14 -40 -6 -18 0 0', d + .45, 'thin') +
+      P('M20 -64 C14 -40 6 -18 0 0', d + .5, 'thin'));
+  }
+  function bud(x, y, rot, d) {
+    return G('translate(' + x + ' ' + y + ') rotate(' + rot + ')',
+      P('M0 0 C-26 -6 -28 -50 0 -80 C28 -50 26 -6 0 0', d) +
+      P('M0 -80 C-8 -44 -6 -20 0 0', d + .3, 'thin') +
+      P('M0 -80 C10 -50 12 -26 8 -6', d + .35, 'thin'));
+  }
+  set('tulips',
+    P('M150 170 C146 260 158 380 140 510', .1) +
+    P('M222 214 C214 300 190 400 146 510', .3) +
+    P('M70 232 C76 330 100 420 138 510', .5) +
+    P('M140 510 C100 440 84 360 60 290 C112 340 142 430 140 510Z', .9) +
+    P('M140 510 C108 430 92 360 66 296', 1.1, 'thin') +
+    P('M142 510 C168 420 210 350 252 290 C246 370 200 450 142 510Z', 1.0) +
+    P('M144 510 C172 430 206 360 246 298', 1.2, 'thin') +
+    P('M141 510 C130 440 120 380 128 320 C152 390 152 450 141 510Z', 1.1) +
+    tulip(150, 172, 0, 1, .2) + tulip(222, 216, 20, .86, .4) + bud(70, 234, -6, .6));
+
+  /* magnolia */
+  function leaf(x, y, rot, s, d) {
+    return G('translate(' + x + ' ' + y + ') rotate(' + rot + ') scale(' + s + ')',
+      P('M0 0 C24 -22 76 -24 110 0 C76 24 24 22 0 0Z', d) + P('M0 0 L104 0', d + .2, 'thin') +
+      P('M30 0 L52 -11 M52 0 L76 -11 M30 0 L52 11 M52 0 L76 11', d + .3, 'thin'));
+  }
+  function mbud(x, y, rot, s, d) {
+    return G('translate(' + x + ' ' + y + ') rotate(' + rot + ') scale(' + s + ')',
+      P('M0 0 C-26 -8 -30 -50 0 -90 C30 -50 26 -8 0 0', d) + P('M0 0 C-10 -30 -8 -60 0 -90', d + .2, 'thin') + P('M0 0 C16 -20 24 -50 0 -90', d + .25, 'thin'));
+  }
+  function bloom(x, y, d) {
+    var s = '';
+    for (var i = 0; i < 7; i++) {
+      s += G('rotate(' + (i * 51.4) + ')', P('M0 0 C-30 -26 -34 -78 0 -96 C34 -78 30 -26 0 0Z', d + i * .12) + P('M0 -10 C-3 -40 -3 -62 0 -84', d + .5 + i * .1, 'thin'));
+    }
+    for (var k = 0; k < 12; k++) { var a = k * 30 * Math.PI / 180; s += P('M0 0 L' + (Math.cos(a) * 16).toFixed(1) + ' ' + (Math.sin(a) * 16).toFixed(1), d + 1.1, 'thin'); }
+    return G('translate(' + x + ' ' + y + ') rotate(-12) scale(1 .8)', s);
+  }
+  set('magnolia',
+    P('M20 384 C100 344 150 304 190 254 C220 218 250 204 292 194', .1) +
+    P('M150 304 C140 254 130 204 120 156', .3) +
+    P('M200 242 C230 170 268 124 300 84', .4) +
+    leaf(60, 364, -38, .9, .6) + leaf(150, 306, 28, .8, .8) + leaf(196, 252, 66, .8, 1.0) + leaf(120, 230, -62, .7, 1.2) +
+    mbud(120, 160, -14, 1, .5) + mbud(300, 88, 14, .8, .7) + bloom(300, 214, .3));
+
+  /* lavender */
+  (function () {
+    var r = rng(7), s = '', n = 15, d = .4;
+    s += P('M60 352 C54 280 66 200 60 54', 0.1);
+    s += P('M60 352 C40 320 24 300 14 262', .5, 'thin') + P('M60 352 C78 318 94 296 104 260', .6, 'thin');
+    for (var i = 0; i < n; i++) {
+      var t = 0.32 + 0.66 * (i / (n - 1)), y = 352 - t * 298, x = 60 + Math.sin(t * 3.1) * 4 * (1 - t) - 3 * t;
+      var w = 9 - 4.5 * t, h = 17 - 7 * t;
+      s += '<ellipse class="ink thin" pathLength="1" style="--d:' + (d + i * .1).toFixed(2) + 's" cx="' + (x - w * .8).toFixed(1) + '" cy="' + y.toFixed(1) + '" rx="' + (w * .62).toFixed(1) + '" ry="' + (h * .5).toFixed(1) + '" transform="rotate(-22 ' + x.toFixed(1) + ' ' + y.toFixed(1) + ')"/>';
+      s += '<ellipse class="ink thin" pathLength="1" style="--d:' + (d + i * .1 + .05).toFixed(2) + 's" cx="' + (x + w * .8).toFixed(1) + '" cy="' + (y - 4).toFixed(1) + '" rx="' + (w * .62).toFixed(1) + '" ry="' + (h * .5).toFixed(1) + '" transform="rotate(22 ' + x.toFixed(1) + ' ' + y.toFixed(1) + ')"/>';
+    }
+    s += '<ellipse class="ink thin" pathLength="1" style="--d:2s" cx="60" cy="48" rx="3" ry="8"/>';
+    set('lav', s);
+  })();
+
+  /* baby's breath */
+  (function () {
+    var r = rng(21), s = '';
+    function br(x, y, a, l, dep, d) {
+      var x2 = x + Math.cos(a) * l, y2 = y + Math.sin(a) * l;
+      var cx = (x + x2) / 2 + (r() - .5) * l * .22, cy = (y + y2) / 2 + (r() - .5) * l * .22;
+      s += P('M' + x.toFixed(1) + ' ' + y.toFixed(1) + ' Q' + cx.toFixed(1) + ' ' + cy.toFixed(1) + ' ' + x2.toFixed(1) + ' ' + y2.toFixed(1), d, 'thin');
+      if (dep === 0) {
+        s += '<circle class="ink thin" pathLength="1" style="--d:' + (d + .3).toFixed(2) + 's" cx="' + x2.toFixed(1) + '" cy="' + y2.toFixed(1) + '" r="' + (3 + r() * 1.6).toFixed(1) + '"/>';
+        return;
+      }
+      var kids = dep > 2 ? 3 : 2;
+      for (var i = 0; i < kids; i++) {
+        var spread = (i - (kids - 1) / 2) * (0.62 + r() * .2);
+        br(x2, y2, a + spread + (r() - .5) * .15, l * (.58 + r() * .1), dep - 1, d + .28);
+      }
+    }
+    br(110, 336, -Math.PI / 2, 120, 4, .2);
+    set('gyp', s);
+  })();
+
+  /* scattered blossoms: daisies, five-petal flowers, cosmos, leafy sprigs, drifting petals */
+  (function () {
+    var host = document.getElementById('scatter');
+    if (!host) return;
+    function daisy(d) {
+      var s = '';
+      for (var i = 0; i < 12; i++) s += G('rotate(' + (i * 30) + ')', P('M0 -9 C-5 -26 -4 -42 0 -50 C4 -42 5 -26 0 -9Z', d + i * .05, 'thin'));
+      s += '<circle class="ink thin" pathLength="1" style="--d:' + (d + .7).toFixed(2) + 's" r="8"/>';
+      s += P('M-4 -3 L4 3 M4 -3 L-4 3 M0 -5 L0 5', d + .9, 'thin');
+      return s;
+    }
+    function blossom(d) {
+      var s = '';
+      for (var i = 0; i < 5; i++) s += G('rotate(' + (i * 72) + ')', P('M0 -4 C-24 -14 -26 -46 -8 -50 C-3 -47 0 -44 0 -42 C0 -44 3 -47 8 -50 C26 -46 24 -14 0 -4Z', d + i * .1, 'thin') + P('M0 -8 C-1 -20 -1 -30 0 -38', d + .6 + i * .05, 'thin'));
+      for (var k = 0; k < 5; k++) { var a = (k * 72 + 36) * Math.PI / 180; s += P('M0 0 L' + (Math.cos(a) * 12).toFixed(1) + ' ' + (Math.sin(a) * 12).toFixed(1), d + 1, 'thin') + '<circle class="ink thin" pathLength="1" style="--d:' + (d + 1.1).toFixed(2) + 's" cx="' + (Math.cos(a) * 14).toFixed(1) + '" cy="' + (Math.sin(a) * 14).toFixed(1) + '" r="1.8"/>'; }
+      return s;
+    }
+    function cosmos(d) {
+      var s = '';
+      for (var i = 0; i < 8; i++) s += G('rotate(' + (i * 45) + ')', P('M0 -5 C-14 -18 -18 -38 -12 -50 L-5 -45 L0 -52 L5 -45 L12 -50 C18 -38 14 -18 0 -5Z', d + i * .06, 'thin'));
+      s += '<circle class="ink thin" pathLength="1" style="--d:' + (d + .8).toFixed(2) + 's" r="5"/>';
+      return s;
+    }
+    function sprig(d) {
+      var s = P('M-50 10 C-20 -6 20 -6 50 -14', d);
+      var xs = [-34, -14, 6, 26];
+      for (var i = 0; i < xs.length; i++) {
+        var x = xs[i], y = -2 - i * 1.5 + (i === 0 ? 6 : 0);
+        s += G('translate(' + x + ' ' + y + ') rotate(-52) scale(.34)', P('M0 0 C24 -22 76 -24 110 0 C76 24 24 22 0 0Z', d + .3 + i * .15, 'thin') + P('M0 0 L100 0', d + .4 + i * .15, 'thin'));
+        s += G('translate(' + (x + 6) + ' ' + (y + 1) + ') rotate(52) scale(.3)', P('M0 0 C24 -22 76 -24 110 0 C76 24 24 22 0 0Z', d + .5 + i * .15, 'thin') + P('M0 0 L100 0', d + .6 + i * .15, 'thin'));
+      }
+      s += G('translate(50 -14) rotate(-20) scale(.34)', P('M0 0 C24 -22 76 -24 110 0 C76 24 24 22 0 0Z', d + 1, 'thin'));
+      return s;
+    }
+    var kinds = { daisy: [daisy, '-60 -60 120 120'], blossom: [blossom, '-60 -60 120 120'], cosmos: [cosmos, '-60 -60 120 120'], sprig: [sprig, '-60 -30 120 60'] };
+    var out = '';
+    function add(kind, x, y, size, rot, delay, mode) {
+      var k = kinds[kind];
+      out += '<svg class="' + mode + '" viewBox="' + k[1] + '" style="left:' + x + '%;top:' + y + '%;width:' + size + 'rem;--r:' + rot + 'deg" aria-hidden="true">' + k[0](delay) + '</svg>';
+    }
+    /* desktop */
+    add('cosmos', 7, 13, 5.2, -14, 1.2, 'd');
+    add('daisy', 17, 27, 3.4, 20, 1.6, 'd');
+    add('sprig', 14, 7, 6.5, -10, 1.8, 'd');
+    add('blossom', 33, 9, 3.6, 12, 1.4, 'd');
+    add('daisy', 49, 5.5, 2.8, -8, 1.9, 'd');
+    add('cosmos', 64, 9, 3.4, 24, 2.1, 'd');
+    add('sprig', 31, 94, 6.5, 170, 2.0, 'd');
+    add('daisy', 44, 91, 3.8, -20, 1.7, 'd');
+    add('blossom', 58, 93, 3, 30, 2.3, 'd');
+    add('cosmos', 69, 89, 3.6, -6, 1.9, 'd');
+    add('blossom', 90, 62, 4.2, -18, 2.2, 'd');
+    add('daisy', 78, 56, 3, 14, 2.5, 'd');
+    add('sprig', 93, 47, 5.4, 80, 2.4, 'd');
+    /* phone */
+    add('blossom', 6, 33, 2.8, 10, 1.4, 'm');
+    add('daisy', 95, 47, 2.4, -10, 1.7, 'm');
+    add('cosmos', 5, 56, 2.6, 18, 1.9, 'm');
+    add('daisy', 95, 64, 3, 6, 2.1, 'm');
+    add('blossom', 16, 71, 2.4, -12, 2.3, 'm');
+    add('daisy', 50, 72, 2.2, 14, 2.5, 'm');
+    add('cosmos', 84, 71, 2.6, -8, 2.7, 'm');
+    for (var i = 0; i < 7; i++) {
+      out += '<svg class="petal-fall" viewBox="-10 -14 20 28" style="left:' + (8 + i * 13) + '%;--t:' + (15 + (i % 3) * 4) + 's;--w:' + (i * 2.3 + 3) + 's"><path d="M0 12 C-10 4 -9 -8 0 -13 C9 -8 10 4 0 12Z"/></svg>';
+    }
+    host.innerHTML = out;
+  })();
+})();
+</script>
+
+</body>
+</html>
